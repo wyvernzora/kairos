@@ -1,0 +1,20 @@
+VERSION 0.6
+FROM alpine
+ARG VERSION="latest"
+ARG IMAGE_REPOSITORY=ghcr.io/wyvernzora
+
+build-agent:
+    FROM alpine
+    RUN apk add --no-cache curl
+    RUN curl -o kairos-agent.tar.gz -sSL "https://github.com/wyvernzora/kairos-agent/releases/download/v2.3.0-templating/kairos-agent-v2.3.0-templating-Linux-x86_64.tar.gz"
+    RUN tar xzvf kairos-agent.tar.gz
+    SAVE ARTIFACT kairos-agent kairos-agent
+
+build:
+    FROM quay.io/kairos/kairos-debian:v2.4.1-k3sv1.25.11-k3s1
+    COPY (+build-agent/kairos-agent) /usr/bin/kairos-agent
+    SAVE IMAGE $IMAGE_REPOSITORY/kairos:${VERSION}
+
+publish:
+    BUILD +build
+    SAVE IMAGE --push $IMAGE_REPOSITORY/kairos:${VERSION}

@@ -54,3 +54,6 @@ shellcheck-lint:
 lint:
     BUILD +renovate-validate
     BUILD +shellcheck-lint
+
+kairos-image:
+    BUILD ./image+publish
