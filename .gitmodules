@@ -1,0 +1,3 @@
+[submodule "image/kairos-agent"]
+	path = image/kairos-agent
+	url = git@github.com:wyvernzora/kairos-agent.git
