@@ -1,3 +1,4 @@
+{{- with .Config.kubevip -}}
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -11,10 +12,11 @@ metadata:
 spec:
   chart: kube-vip
   repo: https://kube-vip.github.io/helm-charts
-  version: "@VERSION@"
+  version: "{{ default "0.4.4" .version }}"
   valuesContent: |-
     config:
-      address: @EIP@
+      address: "{{ .eip }}"
     env:
-      vip_interface: @INTERFACE@
-      cp_enable: "@ENABLED@"
+      vip_interface: "{{ default "eth0" .interface }}"
+      cp_enable: "{{ default "true" .enable }}"
+{{- end -}}

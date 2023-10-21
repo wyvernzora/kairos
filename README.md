@@ -17,12 +17,14 @@ This repository builds and pushes Kairos image and bundles that I built for my h
   - [kube-vip](kube-vip/README.md)
 ## Usage
 
+🚨 Bundles in this repo use `kairos-agent render-template` command that is not in release version yet. 🚨
+
 To use a community bundle, you can load it with the bundles block in the Kairos configuration file, like this:
 
 ```yaml
 bundles:
 - targets:
-  - run://quay.io/kairos/community-bundles:<bundle-name>
+  - run://ghcr.io/wyvernzora/kairos-kube-vip:latest
 ```
 
 Here is an example of how you might use a community bundle in a Kairos core image:
@@ -43,7 +45,7 @@ users:
 
 bundles:
 - targets:
-  - run://quay.io/kairos/community-bundles:kubevirt
+  - run://ghcr.io/wyvernzora/kairos-kube-vip:latest
 
 k3s:
   enabled: true

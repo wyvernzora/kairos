@@ -29,8 +29,6 @@ jobs:
           submodules: true
       - name: Set up Docker runtime
         uses: docker-practice/actions-setup-docker@master
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
       - name: Set up Earthly build
         uses: earthly/actions-setup@v1
         with:
@@ -46,6 +44,7 @@ jobs:
       - name: Build os-image and push
         uses: docker/build-push-action@v5
         with:
-          push: true
           context: ./image
+          platforms: linux/amd64,linux/arm64
+          push: true
           tags: ${{ env.REGISTRY }}/wyvernzora/kairos

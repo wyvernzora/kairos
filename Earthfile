@@ -27,13 +27,14 @@ rootfs:
     SAVE ARTIFACT /. rootfs
 
 test:
-    FROM quay.io/kairos/core-alpine-opensuse-leap
-    RUN apk add go
+    FROM ghcr.io/wyvernzora/kairos:latest
+    RUN apt-get update && apt-get install -y golang
     ENV GOPATH=/go
     ENV PATH=$PATH:$GOPATH/bin
     COPY (+rootfs/rootfs --BUNDLE=$BUNDLE) /bundle
-    COPY . .
-    RUN cd tests && \ 
+    COPY tests tests
+    COPY bundle/${BUNDLE}/tests/* tests/
+    RUN cd tests && \
         go install -mod=mod github.com/onsi/ginkgo/v2/ginkgo && \
         ginkgo --label-filter="${BUNDLE}" -v ./...
 

@@ -1,4 +1,4 @@
-module github.com/kairos-io/community-bundles/tests
+module github.com/wyvernzora/kairos
 
 go 1.19
 
