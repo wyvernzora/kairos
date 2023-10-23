@@ -1,3 +1,6 @@
+{{/* renovate: depName=metallb repoUrl=https://metallb.github.io/metallb */}}
+{{- $version := "0.4.4" -}}
+
 {{- with .Config.kubevip -}}
 apiVersion: v1
 kind: Namespace

@@ -42,7 +42,7 @@ renovate-validate:
     ARG RENOVATE_VERSION
     FROM renovate/renovate:$RENOVATE_VERSION
     WORKDIR /usr/src/app
-    COPY renovate.json .
+    COPY .github/renovate.json .
     RUN renovate-config-validator
 
 shellcheck-lint:
