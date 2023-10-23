@@ -2,10 +2,18 @@
 set -ex
 
 K3S_MANIFEST_DIR=${K3S_MANIFEST_DIR:-/var/lib/rancher/k3s/server/manifests/}
+TEMP_DIR=$(mktemp -d)
 
-mkdir -p "$K3S_MANIFEST_DIR"
-
-# Copy manifests, and template them
-for FILE in assets/*; do 
-    kairos-agent render-template -f "$FILE" > "$K3S_MANIFEST_DIR/$(basename "$FILE")"
+# Render templates into a temporary directory
+for FILE in templates/*; do 
+    OUTFILE="$TEMP_DIR/${FILE##*/}"
+    echo "Rendering $FILE to $OUTFILE"
+    kairos-agent render-template -f "$FILE" > "$OUTFILE"
 done;
+
+# List rendered file
+ls "$TEMP_DIR"
+
+# Copy rendered manifests to output location
+mkdir -p "$K3S_MANIFEST_DIR"
+cp "$TEMP_DIR"/* "$K3S_MANIFEST_DIR"

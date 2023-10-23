@@ -1,3 +1,6 @@
+{{/* renovate: depName=kube-vip repoUrl=https://kube-vip.github.io/helm-charts */}}
+{{- $version := "0.4.4" -}}
+
 {{- with .Config.kubevip -}}
 apiVersion: v1
 kind: Namespace

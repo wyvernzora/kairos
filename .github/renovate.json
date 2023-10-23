@@ -41,6 +41,15 @@
         "matchStrings": [
           "//\\s*renovate:\\s*depName=(?<depName>.*?)(\\s+repoUrl=(?<registryUrl>.*?))?\\s+.*version: \\\"(?<currentValue>.*?)\\\"\""
         ]
+      },
+      {
+        "datasourceTemplate": "helm",
+        "fileMatch": [
+          "^bundle/.+/templates/.+$"
+        ],
+        "matchStrings": [
+          "{{\\/\\*\\s+renovate:\\s+depName=(?<depName>.*?)(\\s+repoUrl=(?<registryUrl>.*?))?\\s+\\*\/}}\n{{-\\s+\\$version\\s+:=\\s+\"(?<currentValue>.*?)\"\\s+-}}"
+        ]
       }
     ]
   }

@@ -2,10 +2,8 @@ name: Custom Image
 
 on:
   push:
-    tags:
-      - v*
-    branches:
-      - main
+    paths:
+      - 'image/**'
 
 concurrency:
   group: ci-os-image-${{ github.head_ref || github.ref }}-${{ github.repository }}
